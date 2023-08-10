@@ -5,6 +5,7 @@ import com.identa.identaproject.entities.Product;
 import com.identa.identaproject.mapper.ProductMapper;
 import com.identa.identaproject.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper = ProductMapper.MAPPER;
 
     private final ProductRepository repository;
+    private final SimpMessagingTemplate template;
     @Override
     public List<ProductDTO> getAll() {
         return mapper.fromProductList(repository.findAll());
@@ -25,5 +27,6 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct(ProductDTO productDTO) {
         Product product = mapper.toProduct(productDTO);
         Product saveProduct = repository.save(product);
+        template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(saveProduct));
     }
 }
