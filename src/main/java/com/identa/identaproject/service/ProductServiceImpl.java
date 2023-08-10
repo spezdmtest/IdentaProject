@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final SimpMessagingTemplate template;
+
     @Override
     public List<ProductDTO> getAll() {
         return mapper.fromProductList(repository.findAll());
@@ -25,8 +26,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(ProductDTO productDTO) {
-        Product product = mapper.toProduct(productDTO);
-        Product saveProduct = repository.save(product);
+        var product = mapper.toProduct(productDTO);
+        var saveProduct = repository.save(product);
         template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(saveProduct));
+    }
+
+    @Override
+    public ProductDTO getById(Long id) {
+        var product = repository.findById(id).orElse(new Product());
+        return ProductMapper.MAPPER.fromProduct(product);
     }
 }

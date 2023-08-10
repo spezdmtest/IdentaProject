@@ -8,7 +8,7 @@ import java.util.List;
 public interface BucketService {
     Bucket createBucket(List<Long> productIds);
 
-    void addProducts(List<Long> productIds);
+    void addProducts(Bucket bucket, List<Long> productIds);
 
     BucketDTO getBucket();
 
