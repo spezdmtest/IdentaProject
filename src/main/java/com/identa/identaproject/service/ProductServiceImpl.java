@@ -2,7 +2,8 @@ package com.identa.identaproject.service;
 
 import com.identa.identaproject.dto.ProductDTO;
 import com.identa.identaproject.entities.Bucket;
-import com.identa.identaproject.entities.Product;
+import com.identa.identaproject.entities.User;
+import com.identa.identaproject.mapper.BucketMapper;
 import com.identa.identaproject.mapper.ProductMapper;
 import com.identa.identaproject.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final SimpMessagingTemplate template;
+    private final UserService userService;
     private final BucketService bucketService;
 
     @Override
@@ -35,10 +37,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addToBucket(Long productId) {
-        var bucket = bucketService.createBucket(Collections.singletonList(productId));
-        if (bucket != null) {
+    public void addToUserBucket(Long productId, String userByEmail) {
+        User user = userService.findByName(userByEmail);
+        if (user == null ) {
+            throw new RuntimeException("User not found - " + userByEmail);
+        }
+        Bucket bucket = user.getBucket();
+        if (bucket == null) {
+            Bucket newBucket = bucketService.createBucket(user, Collections.singletonList(productId));
+            user.setBucket(newBucket);
+            userService.save(user);
+        } else {
             bucketService.addProducts(bucket, Collections.singletonList(productId));
+            template.convertAndSend("/topic/buckets", BucketMapper.MAPPER.fromBucket(bucket));
         }
     }
 }

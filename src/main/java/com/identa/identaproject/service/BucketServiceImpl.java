@@ -5,6 +5,7 @@ import com.identa.identaproject.dto.BucketDetailDTO;
 import com.identa.identaproject.dto.ProductDTO;
 import com.identa.identaproject.entities.Bucket;
 import com.identa.identaproject.entities.Product;
+import com.identa.identaproject.entities.User;
 import com.identa.identaproject.mapper.ProductMapper;
 import com.identa.identaproject.repository.BucketRepository;
 import com.identa.identaproject.repository.ProductRepository;
@@ -30,12 +31,14 @@ public class BucketServiceImpl implements BucketService {
 
     private final BucketRepository bucketRepository;
     private final ProductRepository productRepository;
+    private final UserService userService;
     private boolean quantity;
 
     @Override
     @Transactional
-    public Bucket createBucket(List<Long> productIds) {
+    public Bucket createBucket(User user, List<Long> productIds) {
         Bucket bucket = new Bucket();
+        bucket.setUser(user);
         List<Product> productList = getCollectProductsByIds(productIds);
         bucket.setProducts(productList);
         return bucketRepository.save(bucket);
@@ -51,12 +54,14 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public BucketDTO getBucket() {
+    public BucketDTO getBucketByUser(String userNameByEmail) {
+        User user = userService.findByName(userNameByEmail);
+        if (user == null || user.getBucket() == null) {
+            return new BucketDTO();
+        }
         BucketDTO bucketDTO = new BucketDTO();
         Map<Long, BucketDetailDTO> mapByProductId = new HashMap<>();
-        var all = bucketRepository.findAll();
-        var list = all.stream().map(Bucket::getProducts).collect(Collectors.toList());
-        var products = list.stream().flatMap(List::stream).collect(Collectors.toList());
+        List<Product> products = user.getBucket().getProducts();
         countProducts(products, mapByProductId);
         bucketDTO.setDetails(new ArrayList<>(mapByProductId.values()));
         bucketDTO.calc();

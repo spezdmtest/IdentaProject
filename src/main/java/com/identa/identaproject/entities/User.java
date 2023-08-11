@@ -1,5 +1,6 @@
 package com.identa.identaproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +19,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
+    @JsonIgnore
     private Long id;
     private String email;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Bucket bucket;
 }
