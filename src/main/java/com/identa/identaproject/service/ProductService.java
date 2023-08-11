@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductService {
     List<ProductDTO> getAll();
     void addProduct(ProductDTO productDTO);
+    void addToBucket (Long productId);
+
 }

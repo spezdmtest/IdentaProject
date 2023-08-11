@@ -1,5 +1,6 @@
 package com.identa.identaproject.dto;
 
+import com.identa.identaproject.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,6 @@ import java.util.List;
 public class BucketDTO {
     private int amount;
     private Double sum;
-
     public List<BucketDetailDTO> details = new ArrayList<>();
 
     public void calc() {

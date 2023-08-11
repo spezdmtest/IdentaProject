@@ -13,8 +13,4 @@ public class BucketController {
 
     private final BucketService service;
 
-    public BucketDTO viewBucket() {
-        BucketDTO bucketDTO = service.getBucket();
-        return bucketDTO;
-    }
 }

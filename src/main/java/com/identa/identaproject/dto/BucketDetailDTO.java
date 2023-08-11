@@ -22,7 +22,7 @@ public class BucketDetailDTO {
     public BucketDetailDTO(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
-        this.quantity = new Integer("1.0");
+        this.quantity = new Integer(1);
         this.total = product.getAvailable();
         this.sum = product.getPrice();
     }
