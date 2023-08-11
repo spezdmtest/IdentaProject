@@ -2,7 +2,6 @@ package com.identa.identaproject.service;
 
 import com.identa.identaproject.dto.BucketDTO;
 import com.identa.identaproject.dto.BucketDetailDTO;
-import com.identa.identaproject.dto.ProductDTO;
 import com.identa.identaproject.entities.Bucket;
 import com.identa.identaproject.entities.Product;
 import com.identa.identaproject.entities.User;
@@ -14,13 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Data

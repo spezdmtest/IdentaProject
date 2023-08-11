@@ -1,6 +1,5 @@
 package com.identa.identaproject.mapper;
 
-import com.identa.identaproject.dto.ProductDTO;
 import com.identa.identaproject.dto.UserDTO;
 import com.identa.identaproject.entities.User;
 import org.mapstruct.InheritInverseConfiguration;

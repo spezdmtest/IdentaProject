@@ -2,7 +2,6 @@ package com.identa.identaproject.mapper;
 
 import com.identa.identaproject.dto.ProductDTO;
 import com.identa.identaproject.entities.Product;
-import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
