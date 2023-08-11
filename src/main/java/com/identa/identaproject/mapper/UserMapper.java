@@ -16,7 +16,7 @@ public interface UserMapper {
     User toUser(UserDTO dto);
 
     @InheritInverseConfiguration
-    UserDTO fromProduct(User user);
+    UserDTO fromUser(User user);
 
     List<User> toUserList(List<UserDTO> userDTOS);
 
