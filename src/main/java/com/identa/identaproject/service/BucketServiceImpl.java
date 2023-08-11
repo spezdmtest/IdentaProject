@@ -38,7 +38,6 @@ public class BucketServiceImpl implements BucketService {
         Bucket bucket = new Bucket();
         List<Product> productList = getCollectProductsByIds(productIds);
         bucket.setProducts(productList);
-        mapper.fromProductList(productList);
         return bucketRepository.save(bucket);
     }
 
@@ -48,7 +47,6 @@ public class BucketServiceImpl implements BucketService {
         List<Product> newProductList = products == null ? new ArrayList<>() : new ArrayList<>(products);
         newProductList.addAll(getCollectProductsByIds(productIds));
         bucket.setProducts(newProductList);
-        mapper.fromProductList(newProductList);
         bucketRepository.save(bucket);
     }
 
@@ -61,7 +59,8 @@ public class BucketServiceImpl implements BucketService {
         var products = list.stream().flatMap(List::stream).collect(Collectors.toList());
         countProducts(products, mapByProductId);
         bucketDTO.setDetails(new ArrayList<>(mapByProductId.values()));
-        return null;
+        bucketDTO.calc();
+        return bucketDTO;
     }
 
     private void countProducts(List<Product> products, Map<Long, BucketDetailDTO> mapByProductId) {

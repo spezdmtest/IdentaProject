@@ -19,6 +19,10 @@ public class Bucket {
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany
     @JoinTable(name = "buckets_products",
                joinColumns = @JoinColumn(name = "bucket_id"),

@@ -1,3 +1,13 @@
+-- USERS
+create sequence user_seq start 1 increment 1;
+
+create table users
+(
+    id    int8 not null,
+    email varchar(255),
+    primary key (id)
+);
+
 --PRODUCT
 CREATE SEQUENCE product_seq START 1 INCREMENT 1;
 
@@ -15,9 +25,16 @@ CREATE SEQUENCE bucket_seq START 1 INCREMENT 1;
 
 CREATE TABLE buckets
 (
-    id int8 NOT NULL,
+    id      int8 NOT NULL,
+    user_id int8,
     PRIMARY KEY (id)
 );
+
+-- LINK BETWEEN CARTS AND USER
+alter table if exists carts
+    add constraint carts_fk_user
+        foreign key (user_id) references users;
+
 
 --PRODUCTS IN BUCKET
 CREATE TABLE buckets_products
