@@ -14,15 +14,13 @@ import java.math.BigDecimal;
 public class BucketDetailDTO {
     private Long id;
     private String title;
-    private Integer quantity;
     private Integer total;
-    private BigDecimal sum;
+    private BigDecimal price;
 
     public BucketDetailDTO(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
-        this.quantity = new Integer(1);
         this.total = product.getAvailable();
-        this.sum = product.getPrice();
+        this.price = product.getPrice();
     }
 }

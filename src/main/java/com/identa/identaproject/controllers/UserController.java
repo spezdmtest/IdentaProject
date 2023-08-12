@@ -38,8 +38,4 @@ public class UserController {
     public void messageAddUser(UserDTO userDTO) {
         userService.addUser(userDTO);
     }
-
-
-
-
 }

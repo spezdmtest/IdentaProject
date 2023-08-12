@@ -13,14 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BucketDTO {
-    private int amount;
     private Double sum;
     public List<BucketDetailDTO> details = new ArrayList<>();
 
     public void calc() {
-        this.amount = details.size();
         this.sum = details.stream()
-                .map(BucketDetailDTO::getSum)
+                .map(BucketDetailDTO::getPrice)
                 .mapToDouble(BigDecimal::doubleValue)
                 .sum();
     }

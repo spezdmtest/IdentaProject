@@ -13,5 +13,5 @@ public interface BucketService {
 
     BucketDTO getBucketByUser(String userNameByEmail);
 
-    boolean isNotQuantity();
+    void addToUserBucket (Long productId, String userByEmail);
 }
