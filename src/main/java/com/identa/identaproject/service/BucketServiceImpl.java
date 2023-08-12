@@ -96,7 +96,8 @@ public class BucketServiceImpl implements BucketService {
 
     private List<Product> getCollectProductsByIds(List<Long> productIds) {
         return productIds.stream()
-                .map(productRepository::getById)
+                .map(productId -> productRepository.findById(productId).orElse(null))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 }

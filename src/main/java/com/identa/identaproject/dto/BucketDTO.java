@@ -1,6 +1,5 @@
 package com.identa.identaproject.dto;
 
-import com.identa.identaproject.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
