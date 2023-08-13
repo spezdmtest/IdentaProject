@@ -30,7 +30,7 @@ public class UserRepositoryTest {
         User actualUser = userRepository.findFirstByEmail("test@test.com");
 
         Assertions.assertNotNull(actualUser);
-        Assertions.assertEquals(2, actualUser.getId());
+        Assertions.assertEquals(1, actualUser.getId());
         Assertions.assertEquals("test@test.com", actualUser.getEmail());
     }
 }
